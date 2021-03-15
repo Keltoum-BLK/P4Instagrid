@@ -110,7 +110,6 @@ class InstagridViewController: UIViewController {
             accessError.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(accessError, animated: true, completion: nil)
         }
-        // else afficher popup:  un message d'erreur , veuillez accéder aux parametre du telephone 
     }
     // MARK: gesture activation by swipe up and swipe left
     private func addGestureRecognizer() {
