@@ -23,11 +23,15 @@ class InstagridViewController: UIViewController {
     @IBOutlet weak var buttonLeftUp: UIButton!
     @IBOutlet weak var buttonRightUp: UIButton!
     
+    @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var centerXConstraint: NSLayoutConstraint!
+    
     //
     @IBOutlet weak var centralView: UIView!
     
     private var buttonImage: UIButton?
     private var imagePicker: UIImagePickerController?
+    private var activityViewController: UIActivityViewController?
     
     // MARK:method that allows to display supplements to the view
     override func viewDidLoad() {
@@ -120,12 +124,29 @@ class InstagridViewController: UIViewController {
     @objc private func swipeFunction(_ recognizer: UISwipeGestureRecognizer) {
         if UIDevice.current.orientation.isPortrait, recognizer.direction == .up {
             print("up")
-            shareTheLayout()
+            self.animationYCentral(constraint: -UIScreen.main.bounds.height)
+            shareTheLayout(direction: .up)
         } else if UIDevice.current.orientation.isLandscape, recognizer.direction == .left {
             print("left")
-            shareTheLayout()
+            self.animationXCentral(constraint: -UIScreen.main.bounds.width)
+            shareTheLayout(direction: .left)
         }
     }
+    // animation for the swipe up in portrait
+       private func animationXCentral(constraint: CGFloat) {
+           UIView.animate(withDuration: 0.5) {
+               self.centerXConstraint.constant = constraint
+                   self.view.layoutIfNeeded()
+               }
+           
+       }
+       //animation for the swipe left in landscape
+       private func animationYCentral(constraint: CGFloat) {
+           UIView.animate(withDuration: 0.5) {
+               self.centerYConstraint.constant = constraint
+                   self.view.layoutIfNeeded()
+           }
+       }
     // MARK: change label text by view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -134,10 +155,23 @@ class InstagridViewController: UIViewController {
     }
     
     //MARK: Share the layout with UIActivityViewCOntroller
-    private func shareTheLayout(){
+    private func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
         guard let imageView = centralView.asImage() else { return }
-        let ac = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
-        present(ac, animated: true, completion: nil)
+        activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
+                guard let activityVC = activityViewController else { return }
+                
+                activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+                            
+                            if direction == .up {
+                                self.animationYCentral(constraint: 0)
+                                self.activityViewController = nil
+                            } else if direction == .left {
+                                self.animationXCentral(constraint: 0)
+                                self.activityViewController = nil
+                            }
+                        }
+                present(activityVC, animated: true, completion: nil)
+        
     }
     //checkPermission ask access to the library of the device.
     func checkPermission() -> Bool {

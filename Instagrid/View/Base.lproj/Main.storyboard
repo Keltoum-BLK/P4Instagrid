@@ -244,6 +244,8 @@
                         <outlet property="buttonLeftUp" destination="v3W-gn-lcK" id="m4G-GO-vgC"/>
                         <outlet property="buttonRightDown" destination="D8c-SE-nEa" id="zvj-Om-HzF"/>
                         <outlet property="buttonRightUp" destination="Bw4-Ng-TKG" id="1wc-kQ-yjK"/>
+                        <outlet property="centerXConstraint" destination="nd9-95-za0" id="UC2-Le-4Ce"/>
+                        <outlet property="centerYConstraint" destination="Z6h-0w-Axk" id="8p2-ts-OXg"/>
                         <outlet property="centralView" destination="gYu-rj-sZc" id="iYS-WH-Q1F"/>
                         <outlet property="layout1Button" destination="kfm-jH-LY1" id="VLu-TL-yVN"/>
                         <outlet property="layout2Button" destination="tAT-M1-ZqX" id="9sP-BQ-c96"/>
