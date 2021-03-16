@@ -22,13 +22,14 @@ class InstagridViewController: UIViewController {
     @IBOutlet weak var buttonRightDown: UIButton!
     @IBOutlet weak var buttonLeftUp: UIButton!
     @IBOutlet weak var buttonRightUp: UIButton!
-    
+    //constraint to manage the animation X et Y
     @IBOutlet weak var centerYConstraint: NSLayoutConstraint!
     @IBOutlet weak var centerXConstraint: NSLayoutConstraint!
     
-    //
+    //the central layour where the user add the photos
     @IBOutlet weak var centralView: UIView!
     
+    //private variables used to factor and operate methods
     private var buttonImage: UIButton?
     private var imagePicker: UIImagePickerController?
     private var activityViewController: UIActivityViewController?
@@ -104,11 +105,11 @@ class InstagridViewController: UIViewController {
             guard let secureImagePicker = imagePicker else { return }
             present(secureImagePicker, animated: true)
         } else {
+            //popup with one button to alert the user to unlock access in device setting
             let accessError = UIAlertController(title: "Autorisation refusée", message: "Veuillez autoriser l'accès dans vos paramètres téléphone.", preferredStyle: UIAlertController.Style.alert)
             accessError.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(accessError, animated: true, completion: nil)
         }
-        // else afficher popup:  un message d'erreur , veuillez accéder aux parametre du telephone 
     }
     // MARK: gesture activation by swipe up and swipe left
     private func addGestureRecognizer() {
@@ -121,6 +122,7 @@ class InstagridViewController: UIViewController {
         view.addGestureRecognizer(swipeLeftGestureRecognizer)
     }
     // MARK: view change check
+    //this method call the animation X and Y, also the shareTheLayout to work when the direction change. 
     @objc private func swipeFunction(_ recognizer: UISwipeGestureRecognizer) {
         if UIDevice.current.orientation.isPortrait, recognizer.direction == .up {
             print("up")
@@ -159,7 +161,7 @@ class InstagridViewController: UIViewController {
         guard let imageView = centralView.asImage() else { return }
         activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
                 guard let activityVC = activityViewController else { return }
-                
+                // when the UIActivityController is dismissed the view back to the original place. 
                 activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                             
                             if direction == .up {
@@ -201,7 +203,7 @@ class InstagridViewController: UIViewController {
         case .limited:
             print("ok")
         @unknown default:
-            // Unknown case - update for swift 5
+            // Unknown case
             break
         }
         // Value ready to be returned
