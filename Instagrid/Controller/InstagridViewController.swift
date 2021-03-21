@@ -77,7 +77,6 @@ class InstagridViewController: UIViewController {
             layout3Button.isSelected = false
             buttonLeftUp.isHidden = true
             buttonLeftDown.isHidden = false
-            
         case 2:
             layout2Button.isSelected = true
             layout1Button.isSelected = false

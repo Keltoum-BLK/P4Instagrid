@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D1475D3B25F13CD400F8FCE2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1475D3A25F13CD400F8FCE2 /* UIView.swift */; };
 		D1C392B825B08DD3007D20E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C392B725B08DD3007D20E1 /* AppDelegate.swift */; };
-		D1C392BA25B08DD3007D20E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C392B925B08DD3007D20E1 /* SceneDelegate.swift */; };
 		D1C392BC25B08DD3007D20E1 /* InstagridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C392BB25B08DD3007D20E1 /* InstagridViewController.swift */; };
 		D1C392BF25B08DD3007D20E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1C392BD25B08DD3007D20E1 /* Main.storyboard */; };
 		D1C392C125B08DD5007D20E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1C392C025B08DD5007D20E1 /* Assets.xcassets */; };
@@ -22,7 +21,6 @@
 		D1475D3A25F13CD400F8FCE2 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D1C392B425B08DD3007D20E1 /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1C392B725B08DD3007D20E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D1C392B925B08DD3007D20E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D1C392BB25B08DD3007D20E1 /* InstagridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagridViewController.swift; sourceTree = "<group>"; };
 		D1C392BE25B08DD3007D20E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1C392C025B08DD5007D20E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 			children = (
 				D1257B8F25F1455D007423F8 /* fonts */,
 				D1C392B725B08DD3007D20E1 /* AppDelegate.swift */,
-				D1C392B925B08DD3007D20E1 /* SceneDelegate.swift */,
 				D1C392C225B08DD5007D20E1 /* LaunchScreen.storyboard */,
 				D1C392C025B08DD5007D20E1 /* Assets.xcassets */,
 			);
@@ -191,7 +188,6 @@
 				D1475D3B25F13CD400F8FCE2 /* UIView.swift in Sources */,
 				D1C392BC25B08DD3007D20E1 /* InstagridViewController.swift in Sources */,
 				D1C392B825B08DD3007D20E1 /* AppDelegate.swift in Sources */,
-				D1C392BA25B08DD3007D20E1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BP4DYC4UP8;
 				INFOPLIST_FILE = Instagrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,6 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BP4DYC4UP8;
 				INFOPLIST_FILE = Instagrid/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
