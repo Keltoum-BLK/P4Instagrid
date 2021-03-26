@@ -30,6 +30,7 @@ class InstagridViewController: UIViewController {
     @IBOutlet weak var centralView: UIView!
     
     //private variables used to factor and operate methods
+    private var firstStart = true
     private var buttonImage: UIButton?
     private var imagePicker: UIImagePickerController?
     private var activityViewController: UIActivityViewController?
@@ -40,8 +41,6 @@ class InstagridViewController: UIViewController {
         if checkPermission() {
             print("ok we've the clearance")
         }
-        layout1Button.setImage(UIImage(named: "Layout1"), for: .normal)
-        
         layout1Button.tag = 1
         layout2Button.tag = 2
         layout3Button.tag = 3
@@ -51,17 +50,28 @@ class InstagridViewController: UIViewController {
         buttonRightDown.tag = 3
         buttonLeftDown.tag = 4
         
+        layout1Button.setImage(UIImage(named: "Layout1"), for: .normal)
         layout1Button.setImage(UIImage(named: "layoutSelected"), for: .selected)
         
         layout2Button.setImage(UIImage(named: "Layout2"), for: .normal)
-        
         layout2Button.setImage(UIImage(named: "layoutSelected2"), for: .selected)
         
         layout3Button.setImage(UIImage(named: "Layout3"), for: .normal)
-        
         layout3Button.setImage(UIImage(named: "layoutSelected3"), for: .selected)
+        layout3Button.isSelected = true
         
         addGestureRecognizer()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+            if firstStart {
+                firstStart = false
+                detectOrientation()
+            }
+    }
+    @objc fileprivate func detectOrientation() {
+        swipeLabel.text =  (UIDevice.current.orientation.isPortrait) ? "^\nSwipe up to share" : "<\nSwipe left to share"
     }
     
     // MARK: methods to select a layout and add new photos to the layout
@@ -134,44 +144,44 @@ class InstagridViewController: UIViewController {
         }
     }
     // animation for the swipe up in portrait
-       private func animationXCentral(constraint: CGFloat) {
-           UIView.animate(withDuration: 0.5) {
-               self.centerXConstraint.constant = constraint
-                   self.view.layoutIfNeeded()
-               }
-           
-       }
-       //animation for the swipe left in landscape
-       private func animationYCentral(constraint: CGFloat) {
-           UIView.animate(withDuration: 0.5) {
-               self.centerYConstraint.constant = constraint
-                   self.view.layoutIfNeeded()
-           }
-       }
+    private func animationXCentral(constraint: CGFloat) {
+        UIView.animate(withDuration: 0.5) {
+            self.centerXConstraint.constant = constraint
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    //animation for the swipe left in landscape
+    private func animationYCentral(constraint: CGFloat) {
+        UIView.animate(withDuration: 0.5) {
+            self.centerYConstraint.constant = constraint
+            self.view.layoutIfNeeded()
+        }
+    }
     // MARK: change label text by view orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        swipeLabel.text =  (UIDevice.current.orientation.isPortrait) ? "^\nSwipe up to share" : "<\nSwipe left to share"
+         
+        detectOrientation()
     }
     
     //MARK: Share the layout with UIActivityViewCOntroller
     private func shareTheLayout(direction: UISwipeGestureRecognizer.Direction){
         guard let imageView = centralView.asImage() else { return }
         activityViewController = UIActivityViewController(activityItems: [imageView as UIImage], applicationActivities: nil)
-                guard let activityVC = activityViewController else { return }
-                // when the UIActivityController is dismissed the view back to the original place. 
-                activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-                            
-                            if direction == .up {
-                                self.animationYCentral(constraint: 0)
-                                self.activityViewController = nil
-                            } else if direction == .left {
-                                self.animationXCentral(constraint: 0)
-                                self.activityViewController = nil
-                            }
-                        }
-                present(activityVC, animated: true, completion: nil)
+        guard let activityVC = activityViewController else { return }
+        // when the UIActivityController is dismissed the view back to the original place.
+        activityVC.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            
+            if direction == .up {
+                self.animationYCentral(constraint: 0)
+                self.activityViewController = nil
+            } else if direction == .left {
+                self.animationXCentral(constraint: 0)
+                self.activityViewController = nil
+            }
+        }
+        present(activityVC, animated: true, completion: nil)
         
     }
     //checkPermission ask access to the library of the device.
